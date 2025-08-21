@@ -1,0 +1,177 @@
+# # version: "3.9"
+
+# # services:
+# #   postgres:
+# #     image: postgres:16
+# #     environment:
+# #       POSTGRES_USER: postgres
+# #       POSTGRES_PASSWORD: password
+# #       POSTGRES_DB: app_development
+# #     volumes:
+# #       - postgres_data:/var/lib/postgresql/data
+# #     ports:
+# #       - "5437:5432"
+
+# #   redis:
+# #     image: redis:7
+# #     ports:
+# #       - "6379:6379"
+
+# #   elasticsearch:
+# #     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+# #     environment:
+# #       - discovery.type=single-node
+# #       - xpack.security.enabled=false
+# #       - ES_JAVA_OPTS=-Xms512m -Xmx512m
+# #     ports:
+# #       - "9200:9200"
+
+# #   web:
+# #     build: .
+# #     command: ./bin/rails server -b 0.0.0.0 -p 3000
+# #     volumes:
+# #       - .:/rails
+# #     ports:
+# #       - "3000:3000"
+# #     depends_on:
+# #       - postgres
+# #       - redis
+# #       - elasticsearch
+# #     environment:
+# #       RAILS_ENV: development
+# #       REDIS_URL: redis://redis:6379/0
+# #       POSTGRES_USER: postgres
+# #       POSTGRES_PASSWORD: password
+# #       POSTGRES_DB: app_development
+# #       POSTGRES_HOST: postgres
+# #       ELASTICSEARCH_URL: http://elasticsearch:9200
+
+# #   sidekiq:
+# #     build: .
+# #     command: bundle exec sidekiq
+# #     volumes:
+# #       - .:/rails
+# #     depends_on:
+# #       - redis
+# #       - postgres
+# #     environment:
+# #       RAILS_ENV: development
+# #       REDIS_URL: redis://redis:6379/0
+# #       POSTGRES_USER: postgres
+# #       POSTGRES_PASSWORD: password
+# #       POSTGRES_DB: app_development
+# #       POSTGRES_HOST: postgres
+
+# # volumes:
+# #   postgres_data:
+
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5437:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+
+  web:
+    build: .
+    command: ./bin/rails server -b 0.0.0.0 -p 3000
+    volumes:
+      - .:/rails
+    ports:
+      - "3001:3000"
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+    env_file:
+      - .env
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/rails
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+# version: "3.9"
+
+# services:
+#   postgres:
+#     image: postgres:16
+#     environment:
+#       POSTGRES_USER: ${POSTGRES_USER}
+#       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#       POSTGRES_DB: ${POSTGRES_DB}
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     ports:
+#       - "5437:5432"
+
+#   redis:
+#     image: redis:7
+#     ports:
+#       - "6379:6379"
+
+#   elasticsearch:
+#     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+#     environment:
+#       - discovery.type=single-node
+#       - xpack.security.enabled=false
+#       - ES_JAVA_OPTS=-Xms512m -Xmx512m
+#     ports:
+#       - "9200:9200"
+
+#   web:
+#     build: .
+#     command: ./bin/rails server -b 0.0.0.0 -p 3000
+#     volumes:
+#       - .:/rails
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - postgres
+#       - redis
+#       - elasticsearch
+#     env_file:
+#       - .env
+
+#   sidekiq:
+#     build: .
+#     command: bundle exec sidekiq
+#     volumes:
+#       - .:/rails
+#     depends_on:
+#       - redis
+#       - postgres
+#     env_file:
+#       - .env
+
+# volumes:
+#   postgres_data:
