@@ -53,10 +53,10 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def update
-    result = ApplicationServices.update(params[:token], application_params)
-    handle_result(result)
-  end
+  # def update
+  #   result = ApplicationServices.update(params[:token], application_params)
+  #   handle_result(result)
+  # end
 
   private
 

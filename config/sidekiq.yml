@@ -1,2 +1,5 @@
+:concurrency: 20
 :queues:
-  - default
+  - [critical, 10] # most workers
+  - [medium, 5]
+  - [low, 2]

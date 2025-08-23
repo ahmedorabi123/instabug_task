@@ -1,6 +1,5 @@
-# app/jobs/index_message_job.rb
 class IndexMessageJob < ApplicationJob
-  queue_as :default
+  queue_as :low
 
   def perform(message_id)
     message = Message.includes(:chat).find(message_id)

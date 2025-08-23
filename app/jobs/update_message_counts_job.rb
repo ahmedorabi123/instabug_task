@@ -1,5 +1,5 @@
 class UpdateMessageCountsJob < ApplicationJob
-  queue_as :default
+  queue_as :medium
 
   def perform(*args)
     chat_ids = $redis.smembers("newCreatedMessages").map(&:to_i)

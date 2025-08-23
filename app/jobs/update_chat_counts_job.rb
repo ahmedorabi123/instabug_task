@@ -1,6 +1,5 @@
-
 class UpdateChatCountsJob < ApplicationJob
-  queue_as :default
+  queue_as :medium
 
   def perform
     Rails.logger.info("Starting UpdateChatCountsJob...")
