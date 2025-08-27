@@ -54,5 +54,5 @@ group :test do
 end
 
 # Linting tools
-gem "rubocop", "~> 1.79", group: :development
+gem "rubocop", "~> 1.80", group: :development
 gem "rubocop-rails", "~> 2.32", group: :development
