@@ -55,4 +55,4 @@ end
 
 # Linting tools
 gem "rubocop", "~> 1.79", group: :development
-gem "rubocop-rails", "~> 2.32", group: :development
+gem "rubocop-rails", "~> 2.33", group: :development
